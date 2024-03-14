@@ -12,3 +12,6 @@
 # explicitly in their .standard.yml file to ensure new rules don't break old rubies:
 
 ruby_version: 2.6
+
+extend_config:
+  - .my_frozen_string_literal_comment.yml
