@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
+ENV["HANAMI_ENV"] = "test"
+
+require "bundler/setup"
+require "debug"
 require "yabeda/hanami"
+require "yabeda/rspec"
+
+require_relative "support/hanami_app"
+
+require "hanami/rspec"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -11,5 +20,12 @@ RSpec.configure do |config|
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
+  end
+
+  Kernel.srand config.seed
+  config.order = :random
+
+  config.before(:suite) do
+    Yabeda::Hanami.install!
   end
 end
