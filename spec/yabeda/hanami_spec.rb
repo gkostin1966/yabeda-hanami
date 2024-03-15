@@ -10,6 +10,14 @@ RSpec.describe Yabeda::Hanami, type: :integration do
     TestApplication
   end
 
+  it "has a version number" do
+    expect(described_class::VERSION).not_to be nil
+  end
+
+  it "has a config" do
+    expect(described_class.config).not_to be nil
+  end
+
   # it "increments counters for every request" do
   #   expect { get "/hello/world" }.to \
   #     increment_yabeda_counter(Yabeda.hanami.requests_total)

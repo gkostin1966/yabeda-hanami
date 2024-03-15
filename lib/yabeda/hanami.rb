@@ -2,6 +2,9 @@
 
 require "yabeda"
 
+require "yabeda/hanami/config"
+require "yabeda/hanami/version"
+
 module Yabeda
   module Hanami
     class Error < StandardError; end
@@ -12,9 +15,6 @@ module Yabeda
     ].freeze
 
     class << self
-      # extend Dry::Configurable
-
-      # setting :register_adapter
       def controller_handlers
         @controller_handlers ||= []
       end
@@ -26,7 +26,7 @@ module Yabeda
       # Declare metrics and install event handlers for collecting themya
       def install!
         Yabeda.configure do
-          # config = ::Yabeda::Hanami.config
+          yabeda_hanami_config = ::Yabeda::Hanami.config
 
           group :hanami
 
@@ -43,14 +43,14 @@ module Yabeda
             tags: %i[controller action status format method]
 
           histogram :db_runtime, unit: :seconds, buckets: LONG_RUNNING_REQUEST_BUCKETS,
-            comment: "A histogram of the activerecord execution time.",
+            comment: "A histogram of the persistance execution time.",
             tags: %i[controller action status format method]
 
-          # if config.apdex_target
-          #   gauge :apdex_target, unit: :seconds,
-          #     comment: "Tolerable time for Apdex (T value: maximum duration of satisfactory request)"
-          #   collect { hanami_apdex_target.set({}, config.apdex_target) }
-          # end
+          if yabeda_hanami_config.apdex_target
+            gauge :apdex_target, unit: :seconds,
+              comment: "Tolerable time for Apdex (T value: maximum duration of satisfactory request)"
+            collect { hanami_apdex_target.set({}, yabeda_hanami_config.apdex_target) }
+          end
 
           # ActiveSupport::Notifications.subscribe "process_action.action_controller" do |*args|
           #   event = Yabeda::Hanami::Event.new(*args)
