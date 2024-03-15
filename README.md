@@ -88,6 +88,13 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
+### Docker Compose Development Environment (dcde)
+
+After checking out the repo, run `docker-compose build`to build the 'dcde' image. Once the image is built, run `docker-compose up -d` which will create the 'dcde' container. Now run `docker-compose exec -- dcde bash` to get a bash shell inside the container.
+
+From here on it is the same as above a.k.a. run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. etc...
+
+NOTE: If you are using `docker-compose` on a non-linux machine you will need to run `bundle lock --add-platform x86_64-linux` otherwise the action workflow 'Ruby' (a.k.a. continuous integration) will fail when pushing your branch to GitHub.  
 ### Releasing
 
 1. Bump version number in `lib/yabeda/rails/version.rb` 

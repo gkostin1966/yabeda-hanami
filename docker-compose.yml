@@ -1,9 +1,9 @@
 ---
 services:
-  devenv:
-    image: devenv
+  dcde:
+    image: dcde
     build:
       dockerfile: Dockerfile
       context: .
     volumes:
-      - .:/devenv
+      - .:/dcde
