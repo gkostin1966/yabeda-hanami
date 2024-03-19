@@ -8,8 +8,15 @@
 /spec/reports/
 /tmp/
 
+# rspec failure tracking
+.rspec_status
+
 # node package manager
 .npm
 
-# rspec failure tracking
-.rspec_status
+# hanami testapp
+.env
+log/*
+public/
+node_modules/
+spec/examples.txt
