@@ -42,8 +42,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "standard", "~> 1.3"
   spec.add_development_dependency "debug", "~> 1.9"
 
-  spec.add_development_dependency "hanami", "~> 2.0"
-  spec.add_development_dependency "hanami-rspec", "~> 2.0"
+  HANAMI_VERSION = "2.0"
+  spec.add_development_dependency "hanami", "~> #{HANAMI_VERSION}"
+  spec.add_development_dependency "hanami-router", "~> #{HANAMI_VERSION}"
+  spec.add_development_dependency "hanami-controller", "~> #{HANAMI_VERSION}"
+  
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
 end

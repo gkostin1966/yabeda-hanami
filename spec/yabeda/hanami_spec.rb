@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# require "action_controller/test_case"
+require "hanami/controller"
 
 RSpec.describe Yabeda::Hanami, type: :integration do
-  # include ActionDispatch::Integration::Runner
-  # include ActionDispatch::IntegrationTest::Behavior
+  include Hanami::Integration::Runner
+  include Hanami::IntegrationTest::Behavior
 
   def app
     TestApplication
@@ -18,13 +18,13 @@ RSpec.describe Yabeda::Hanami, type: :integration do
     expect(described_class.config).not_to be nil
   end
 
-  # it "increments counters for every request" do
-  #   expect { get "/hello/world" }.to \
-  #     increment_yabeda_counter(Yabeda.hanami.requests_total)
-  #       .with_tags(controller: "hello", action: "world", status: 200, method: "get", format: :html)
-  #       .by(1)
-  # end
-  #
+  it "increments counters for every request" do
+    expect { get "/hello/world" }.to \
+      increment_yabeda_counter(Yabeda.hanami.requests_total)
+        .with_tags(controller: "hello", action: "world", status: 200, method: "get", format: :html)
+        .by(1)
+  end
+
   # it "measure action runtime for every request" do
   #   expect { get "/hello/long" }.to \
   #     measure_yabeda_histogram(Yabeda.hanami.request_duration)
