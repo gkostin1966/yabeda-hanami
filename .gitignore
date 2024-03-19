@@ -13,3 +13,10 @@
 
 # rspec failure tracking
 .rspec_status
+
+# hanami app
+.env
+log/*
+public/
+node_modules/
+spec/examples.txt
