@@ -9,6 +9,8 @@ gem "hanami-router", "~> 2.1"
 gem "hanami-validations", "~> 2.1"
 gem "hanami-view", "~> 2.1"
 
+gem "yabeda-hanami", git: "https://github.com/gkostin1966/yabeda-hanami", branch: "main"
+
 gem "dry-types", "~> 1.0", ">= 1.6.1"
 gem "puma"
 gem "rake"

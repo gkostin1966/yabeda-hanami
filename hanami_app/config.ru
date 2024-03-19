@@ -2,4 +2,5 @@
 
 require "hanami/boot"
 
+Yabeda::Hanami.install!
 run Hanami.app

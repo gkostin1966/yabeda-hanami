@@ -1,8 +1,18 @@
+GIT
+  remote: https://github.com/gkostin1966/yabeda-hanami
+  revision: bb4fd820b592ddb20ff80eb3d5dca4fe0a1c32b0
+  branch: main
+  specs:
+    yabeda-hanami (0.1.0)
+      yabeda (~> 0.12)
+
 GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    anyway_config (2.6.3)
+      ruby-next-core (~> 1.0)
     better_errors (2.10.1)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
@@ -198,6 +208,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
     rspec-support (3.13.1)
+    ruby-next-core (1.0.2)
     ruby2_keywords (0.0.5)
     shellany (0.0.1)
     temple (0.10.3)
@@ -205,6 +216,10 @@ GEM
     tilt (2.3.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yabeda (0.12.0)
+      anyway_config (>= 1.0, < 3)
+      concurrent-ruby
+      dry-initializer
     zeitwerk (2.6.13)
 
 PLATFORMS
@@ -227,6 +242,7 @@ DEPENDENCIES
   puma
   rack-test
   rake
+  yabeda-hanami!
 
 BUNDLED WITH
    2.4.19
