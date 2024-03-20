@@ -5,6 +5,7 @@ SPEC_ROOT = Pathname(__dir__).realpath.freeze
 
 ENV["HANAMI_ENV"] ||= "test"
 require "hanami/prepare"
+require "yabeda/rspec"
 
 require_relative "support/rspec"
 require_relative "support/features"

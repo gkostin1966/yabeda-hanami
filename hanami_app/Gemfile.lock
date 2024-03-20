@@ -1,9 +1,11 @@
 GIT
   remote: https://github.com/gkostin1966/yabeda-hanami
-  revision: bb4fd820b592ddb20ff80eb3d5dca4fe0a1c32b0
-  branch: main
+  revision: 34670be53f70b614ea8f5e5ab2d30faa4cb1d289
+  branch: hanami-app
   specs:
     yabeda-hanami (0.1.0)
+      dry-events (~> 1.0)
+      dry-monitor (~> 1.0)
       yabeda (~> 0.12)
 
 GEM

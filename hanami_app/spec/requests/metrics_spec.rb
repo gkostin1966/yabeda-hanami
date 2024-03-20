@@ -2,6 +2,8 @@
 
 RSpec.describe "Metrics", type: :request do
   it "is not found" do
+
+    
     get "/hello/world"
 
     # Generate new action via:

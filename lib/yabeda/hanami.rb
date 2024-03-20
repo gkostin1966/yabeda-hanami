@@ -52,6 +52,8 @@ module Yabeda
             collect { hanami_apdex_target.set({}, yabeda_hanami_config.apdex_target) }
           end
 
+
+
           # Dry::Monitor::Notifications.subscribe "process_action.action_controller" do |*args|
           #   event = Yabeda::Hanami::Event.new(*args)
           #
