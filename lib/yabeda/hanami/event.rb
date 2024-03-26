@@ -50,7 +50,7 @@ module Yabeda
 
       def status
         if payload[:status].nil? && payload[:exception].present?
-          ActionDispatch::ExceptionWrapper.status_code_for_exception(payload[:exception].first)
+          Dry::Notifications::ExceptionWrapper.status_code_for_exception(payload[:exception].first)
         else
           payload[:status]
         end

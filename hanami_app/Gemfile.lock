@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/gkostin1966/yabeda-hanami
-  revision: 34670be53f70b614ea8f5e5ab2d30faa4cb1d289
+  revision: 3b5ddd59b434d27c7ccc06daf74a4cbe6470d0a1
   branch: hanami-app
   specs:
     yabeda-hanami (0.1.0)

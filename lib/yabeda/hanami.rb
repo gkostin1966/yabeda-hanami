@@ -52,20 +52,18 @@ module Yabeda
             collect { hanami_apdex_target.set({}, yabeda_hanami_config.apdex_target) }
           end
 
+          Dry::Monitor::Notifications.subscribe "process_action.action_controller" do |*args|
+            event = Yabeda::Hanami::Event.new(*args)
 
+            hanami_requests_total.increment(event.labels)
+            hanami_request_duration.measure(event.labels, event.duration)
+            hanami_view_runtime.measure(event.labels, event.view_runtime)
+            hanami_db_runtime.measure(event.labels, event.db_runtime)
 
-          # Dry::Monitor::Notifications.subscribe "process_action.action_controller" do |*args|
-          #   event = Yabeda::Hanami::Event.new(*args)
-          #
-          #   hanami_requests_total.increment(event.labels)
-          #   hanami_request_duration.measure(event.labels, event.duration)
-          #   hanami_view_runtime.measure(event.labels, event.view_runtime)
-          #   hanami_db_runtime.measure(event.labels, event.db_runtime)
-          #
-          #   Yabeda::Hanami.controller_handlers.each do |handler|
-          #     handler.call(event, event.labels)
-          #   end
-          # end
+            Yabeda::Hanami.controller_handlers.each do |handler|
+              handler.call(event, event.labels)
+            end
+          end
         end
       end
 
