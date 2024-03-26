@@ -1,13 +1,13 @@
-require "yabeda/hanami"
+# frozen_string_literal: true
 
 module HanamiApp
   module Actions
     module Hello
       class World < HanamiApp::Action
-        def handle(req, res)
-          event =Yabeda::Hanami::Event.new()
-          Yabeda.hanami.request_total.increment(event.labels)
-          res.render :json, {message: 'Hello World!'}
+        def handle(request, response)
+          raise StandardError unless Yabeda.hanami
+
+          response.body = Yabeda.hanami.name.to_s
         end
       end
     end

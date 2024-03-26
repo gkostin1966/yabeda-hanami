@@ -30,6 +30,7 @@ end
 
 group :cli, :development, :test do
   gem "hanami-rspec", "~> 2.1"
+  gem "standard"
 end
 
 group :test do
