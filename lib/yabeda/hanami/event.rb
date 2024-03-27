@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-require "dry-monitor"
-require "dry-notifications"
-require "dry-events"
+require "dry/events"
 
 module Yabeda
   module Hanami
     # ActiveSupport Event with added logic for Yabeda tags formatting
-    class Event < Dry::Monitor::Notifications::Event
+    class Event < Dry::Events::Event
       def labels
         @labels ||= begin
           labels = {

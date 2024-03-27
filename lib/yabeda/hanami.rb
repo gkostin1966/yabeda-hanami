@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
-require "dry-monitor"
-require "dry-events"
-
+require "dry/monitor"
 require "yabeda"
-
 require "yabeda/hanami/config"
-# require "yabeda/hanami/event"
+require "yabeda/hanami/event"
+require "yabeda/hanami/middleware"
 require "yabeda/hanami/version"
 
 module Yabeda
@@ -57,11 +55,23 @@ module Yabeda
           end
         end
 
-        Dry::Monitor::Notifications.subscribe "process_action.action_controller" do |*args|
-          # event = Yabeda::Hanami::Event.new(*args)
-          event = args[0]
+        puts "Slice name: #{::Hanami.app.slice_name}"
+        puts "Keys: #{::Hanami.app.keys}"
+        puts "Prepared: #{::Hanami.app.prepared?}"
+        puts "Booted: #{::Hanami.app.booted?}"
+      end
 
-          raise StandardError.new "yabeda hanami install! #{args}"
+      def initialize!
+        puts "Slice name: #{::Hanami.app.slice_name}"
+        puts "Keys: #{::Hanami.app.keys}"
+        puts "Prepared: #{::Hanami.app.prepared?}"
+        puts "Booted: #{::Hanami.app.booted?}"
+
+        ::Hanami.app.container.monitor("process_action.action_controller") do |event|
+          # event = Yabeda::Hanami::Event.new(*args)
+          # event = args[0]
+
+          raise StandardError.new "Hanami app monitor process action action controller #{event}"
 
           hanami_requests_total.increment(event.labels)
           hanami_request_duration.measure(event.labels, event.duration)
