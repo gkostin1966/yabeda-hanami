@@ -6,9 +6,9 @@ require "yabeda/hanami"
 
 module HanamiApp
   class App < Hanami::App
+    Yabeda::Hanami.install!
     Yabeda.configure!
     raise StandardError unless Yabeda.configured?
-    Yabeda::Hanami.install!
     raise StandardError unless Yabeda.hanami
   end
 end
