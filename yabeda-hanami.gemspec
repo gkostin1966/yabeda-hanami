@@ -34,10 +34,8 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
-  spec.add_dependency "yabeda", "~> 0.12"
   spec.add_dependency "dry-monitor", "~> 1.0"
-  spec.add_dependency "dry-events", "~> 1.0"
-
+  spec.add_dependency "yabeda", "~> 0.12"
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "dry-monitor"
+require "dry-events"
+
 require "yabeda"
 
 require "yabeda/hanami/config"
@@ -26,8 +29,6 @@ module Yabeda
 
       # Declare metrics and install event handlers for collecting themya
       def install!
-        raise StandardError "yabeda hanami install!"
-
         Yabeda.configure do
           yabeda_hanami_config = ::Yabeda::Hanami.config
 
@@ -54,21 +55,21 @@ module Yabeda
               collect { hanami_apdex_target.set({}, yabeda_hanami_config.apdex_target) }
             end
           end
+        end
 
-          Dry::Monitor::Notifications.subscribe "process_action.action_controller" do |*args|
-            # event = Yabeda::Hanami::Event.new(*args)
-            event = args[0]
+        Dry::Monitor::Notifications.subscribe "process_action.action_controller" do |*args|
+          # event = Yabeda::Hanami::Event.new(*args)
+          event = args[0]
 
-            raise StandardError args.to_s
+          raise StandardError.new "yabeda hanami install! #{args}"
 
-            hanami_requests_total.increment(event.labels)
-            hanami_request_duration.measure(event.labels, event.duration)
-            hanami_view_runtime.measure(event.labels, event.view_runtime)
-            hanami_db_runtime.measure(event.labels, event.db_runtime)
+          hanami_requests_total.increment(event.labels)
+          hanami_request_duration.measure(event.labels, event.duration)
+          hanami_view_runtime.measure(event.labels, event.view_runtime)
+          hanami_db_runtime.measure(event.labels, event.db_runtime)
 
-            Yabeda::Hanami.controller_handlers.each do |handler|
-              handler.call(event, event.labels)
-            end
+          Yabeda::Hanami.controller_handlers.each do |handler|
+            handler.call(event, event.labels)
           end
         end
       end
