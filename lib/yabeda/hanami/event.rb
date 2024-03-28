@@ -20,15 +20,17 @@ module Yabeda
       end
 
       def duration
-        ms2s super
+        ms2s payload[:time]
       end
 
       def view_runtime
-        ms2s payload[:view_runtime]
+        # ms2s payload[:view_runtime]
+        0
       end
 
       def db_runtime
-        ms2s payload[:db_runtime]
+        # ms2s payload[:db_runtime]
+        0
       end
 
       private
@@ -36,30 +38,33 @@ module Yabeda
       def controller
         case Yabeda::Hanami.config.controller_name_case
         when :camel
-          payload[:controller]
+          # payload[:controller]
+          "CamelCase"
         else
-          payload[:params]["controller"]
+          # payload[:params]["controller"]
+          "nonCamelCase"
         end
       end
 
       def action
-        payload[:action]
+        # payload[:action]
+        "action"
       end
 
       def status
-        if payload[:status].nil? && payload[:exception].present?
-          Dry::Notifications::ExceptionWrapper.status_code_for_exception(payload[:exception].first)
-        else
+        # if payload[:status].nil? && payload[:exception].present?
+        #   Dry::Notifications::ExceptionWrapper.status_code_for_exception(payload[:exception].first)
+        # else
           payload[:status]
-        end
+        # end
       end
 
       def format
-        payload[:format]
+        payload["rack.url_scheme"]
       end
 
       def method
-        payload[:method].downcase
+        payload["REQUEST_METHOD"].downcase
       end
 
       def ms2s(milliseconds)

@@ -16,6 +16,7 @@ module Yabeda
         # forward the request to the next middleware or app
         ::Hanami.app["notifications"].instrument("greg.kostin", rack: 'middleware') do
           status, headers, body = @app.call(env)
+          sleep(1)
         end
 
         puts "Received the outgoing response"

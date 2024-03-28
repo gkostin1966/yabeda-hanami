@@ -6,11 +6,6 @@ RSpec.describe "Metrics", type: :request do
     puts "keys: #{app.keys}"
     puts "notifications: #{app["notifications"].__bus__.events.keys}"
 
-    puts "register event"
-    app["notifications"].register_event('greg.kostin')
-
-    puts "notifications: #{app["notifications"].__bus__.events.keys}"
-
     puts "subscribe"
     app["notifications"].subscribe('greg.kostin') do |event|
       puts "Event Greg: #{event.payload}"

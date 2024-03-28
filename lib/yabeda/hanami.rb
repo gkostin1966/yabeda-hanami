@@ -17,13 +17,13 @@ module Yabeda
     ].freeze
 
     class << self
-      def controller_handlers
-        @controller_handlers ||= []
-      end
+      # def controller_handlers
+      #   @controller_handlers ||= []
+      # end
 
-      def on_controller_action(&block)
-        controller_handlers << block
-      end
+      # def on_controller_action(&block)
+      #   controller_handlers << block
+      # end
 
       # Declare metrics and install event handlers for collecting themya
       def install!
@@ -67,20 +67,19 @@ module Yabeda
         puts "Prepared: #{::Hanami.app.prepared?}"
         puts "Booted: #{::Hanami.app.booted?}"
 
-        ::Hanami.app.container.monitor("process_action.action_controller") do |event|
-          # event = Yabeda::Hanami::Event.new(*args)
-          # event = args[0]
+        yabeda_hanami_config = ::Yabeda::Hanami.config
 
-          raise StandardError.new "Hanami app monitor process action action controller #{event}"
+        yabeda_hanami_config.notifications.subscribe(:"rack.request.stop") do |event|
+          event = Yabeda::Hanami::Event.new(event)
 
           hanami_requests_total.increment(event.labels)
           hanami_request_duration.measure(event.labels, event.duration)
-          hanami_view_runtime.measure(event.labels, event.view_runtime)
-          hanami_db_runtime.measure(event.labels, event.db_runtime)
+          # hanami_view_runtime.measure(event.labels, event.view_runtime)
+          # hanami_db_runtime.measure(event.labels, event.db_runtime)
 
-          Yabeda::Hanami.controller_handlers.each do |handler|
-            handler.call(event, event.labels)
-          end
+          # Yabeda::Hanami.controller_handlers.each do |handler|
+          #   handler.call(event, event.labels)
+          # end
         end
       end
 
