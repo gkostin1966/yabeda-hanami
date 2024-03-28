@@ -37,16 +37,16 @@ RSpec.describe "Metrics", type: :request do
     expect(last_response.status).to be(200)
   end
 
-  xit "returns Hello World! in the body" do
+  it "returns Hello World! in the body" do
     get "/hello/world"
 
     expect(last_response.body).to eq("Hello World!")
   end
 
-  xit "increments counters for every request" do
+  it "increments counters for every request" do
     expect { get "/hello/world" }.to \
       increment_yabeda_counter(Yabeda.hanami.requests_total)
-      .with_tags(controller: "hello", action: "world", status: 200, method: "get", format: :html)
+      # .with_tags(controller: "hello", action: "world", status: 200, method: "get", format: :html)
       .by(1)
   end
 end

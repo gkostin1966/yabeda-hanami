@@ -64,7 +64,7 @@ module Yabeda
       end
 
       def method
-        payload["REQUEST_METHOD"].downcase
+        payload["REQUEST_METHOD"].to_s.downcase
       end
 
       def ms2s(milliseconds)

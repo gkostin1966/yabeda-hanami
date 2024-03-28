@@ -70,10 +70,12 @@ module Yabeda
         yabeda_hanami_config = ::Yabeda::Hanami.config
 
         yabeda_hanami_config.notifications.subscribe(:"rack.request.stop") do |event|
-          event = Yabeda::Hanami::Event.new(event)
+          puts event.to_s
+          puts event.inspect.to_s
+          event = Yabeda::Hanami::Event.new(event.id, event.payload)
 
-          hanami_requests_total.increment(event.labels)
-          hanami_request_duration.measure(event.labels, event.duration)
+          Yabeda.hanami_requests_total.increment(event.labels)
+          Yabeda.hanami_request_duration.measure(event.labels, event.duration)
           # hanami_view_runtime.measure(event.labels, event.view_runtime)
           # hanami_db_runtime.measure(event.labels, event.db_runtime)
 
